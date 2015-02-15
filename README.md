@@ -10,7 +10,7 @@ Dependencies:
 
 Usage:
 
-1. Clone this repository with ```git clone git@github.com:tlehman/bitcoin-vagrant.git```
+1. Clone this repository with ```git clone https://github.com/chetanbhat/bitcoin-vagrant.git```
 2. Navigate into the cloned directory ```cd bitcoin-vagrant```
 3. Run ```vagrant up``` in the current directory 
 
