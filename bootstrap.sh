@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# bitcoin data directory (mounted to host's data/ directory)
+mkdir /vagrant/data/
+
 sudo apt-get update
 sudo apt-get install -y git
 sudo apt-get install -y build-essential
@@ -23,21 +26,9 @@ cd bitcoin
 make
 sudo make install
 
-echo '#!/usr/bin/env bash
+# create data directory and bitcoin.conf
+bitcoind 2>&1 | grep '^rpc' > ~/.bitcoin/bitcoin.conf
 
-if [ ! -d ~/.bitcoin ]; then
-  sudo apt-get install -y transmission-cli
-  mkdir /vagrant/data/
-  cd /vagrant/data
-  # download bootstrap torrent file
-  wget https://bitcoin.org/bin/blockchain/bootstrap.dat.torrent
-  # fetch snapshot of bitcoin blockchain from BitTorrent network
-  transmission-cli bootstrap.dat.torrent -w /vagrant/data
-  ln -s /vagrant/data ~/.bitcoin 
-fi
-' >> ~/bootstrap_blockchain.sh
-
-chmod +x ~/bootstrap_blockchain.sh
-
-echo 'If you want to download all blockchain data using BitTorrent, just run ~/bootstrap_blockchain.sh'
+echo "Done!"
+echo "If you would like to run the bitcoin daemon, run 'bitcoind -daemon'"
 
